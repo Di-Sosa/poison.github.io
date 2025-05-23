@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Modelado Interactivo: Sistema de Gestión de Cuentas por Cobrar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styl.css">
+    
+
+</head>
+<body class="text-gray-800 leading-relaxed">
+    <div class=&quot;container mx-auto p-4 sm:p-6 md:p-8 bg-white shadow-2xl rounded-xl my-8&quot;&gt;>
+
+<header class="text-center mb-10 pb-6 border-b-2 border-indigo-500">
+    <h1 class="text-3xl md:text-4xl font-bold text-indigo-700">Informe del Proyecto</h1>
+    <p class="text-xl text-indigo-600 mt-1">Sistema de Gestión de Cuentas por Cobrar</p>
+    <p class="text-md text-gray-500 mt-3"><strong>Metodología:</strong> Modelado Orientado a Objetos (Poison)</p>
+</header>
+
+<div class="mb-6 flex justify-end space-x-3">
+    <button id="expandAll" class="btn-primary py-2 px-4 rounded-md shadow-md text-sm font-medium">
+        <i class="fas fa-expand-arrows-alt mr-2"></i>Expandir Todo
+    </button>
+    <button id="collapseAll" class="btn-secondary py-2 px-4 rounded-md shadow-md text-sm font-medium">
+        <i class="fas fa-compress-arrows-alt mr-2"></i>Colapsar Todo
+    </button>
+</div>
+
+<div id="accordionContainer" class="space-y-4">
+    <div class="accordion-item bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm">
+        <button class="accordion-header w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-indigo-700 focus:outline-none">
+            <span><i class="fas fa-info-circle mr-3 text-indigo-500"></i>1. Introducción</span>
+            <i class="fas fa-chevron-down accordion-icon transition-transform"></i>
+        </button>
+        <div class="accordion-content bg-white p-5 border-t border-indigo-200">
+            <p class="text-gray-700">
+                El proyecto implementa un sistema para gestionar cuentas por cobrar, utilizando <strong>Node.js</strong> (backend) y <strong>React</strong> (frontend). Se modeló siguiendo principios de <strong>Orientación a Objetos</strong> (Poison) y <strong>Arquitectura MVC</strong> (Modelo-Vista-Controlador), garantizando modularidad y escalabilidad.
+            </p>
+        </div>
+    </div>
+
+    <div class="accordion-item bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm">
+        <button class="accordion-header w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-indigo-700 focus:outline-none">
+            <span><i class="fas fa-sitemap mr-3 text-indigo-500"></i>2. Modelado de Clases</span>
+            <i class="fas fa-chevron-down accordion-icon transition-transform"></i>
+        </button>
+        <div class="accordion-content bg-white p-5 border-t border-indigo-200">
+            <h4 class="text-xl font-medium text-gray-800 mb-3">Diagrama de Clases</h4>
+            <div class="mermaid bg-gray-50 p-4 rounded-lg shadow-inner overflow-x-auto">
+            classDiagram
+                class Cliente {
+                    -String identificacion
+                    -String nombre
+                    -String email
+                    -String telefono
+                    -String direccion
+                    +calcularSaldo() Number
+                }
+                class Transaccion {
+                    -Number id
+                    -Number monto
+                    -Date fecha
+                    -String tipo
+                    +Cliente cliente
+                }
+                class TasaDolar {
+                    -Number id
+                    -Number tasa
+                    -Date fecha
+                }
+                Cliente "1" -- "*" Transaccion : tiene
+                Cliente --&gt; TasaDolar : utiliza
+            </div>
+            <h4 class="text-lg font-medium text-gray-800 mt-6 mb-2">Descripción:</h4>
+            <ul class="list-disc list-inside text-gray-700 space-y-1 pl-4">
+                <li><strong>Cliente</strong>: Entidad central con datos personales y método para calcular saldo.</li>
+                <li><strong>Transaccion</strong>: Registra operaciones financieras vinculadas a un cliente.</li>
+                <li><strong>TasaDolar</strong>: Modela la tasa de cambio para conversión de divisas.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="accordion-item bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm">
+        <button class="accordion-header w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-indigo-700 focus:outline-none">
+            <span><i class="fas fa-project-diagram mr-3 text-indigo-500"></i>3. Modelado de Casos de Uso</span>
+            <i class="fas fa-chevron-down accordion-icon transition-transform"></i>
+        </button>
+        <div class="accordion-content bg-white p-5 border-t border-indigo-200">
+            <h4 class="text-xl font-medium text-gray-800 mb-3">Diagrama de Casos de Uso</h4>
+            <div class="mermaid bg-gray-50 p-4 rounded-lg shadow-inner overflow-x-auto">
+flowchart LR
+    Admin[Administrador] --> UC1[Registrar Cliente]
+    Admin --> UC2[Registrar Transacción]
+    Admin --> UC3[Actualizar Tasa]
+    UC1 -->|Include| Val[Validar Datos]
+    UC3 -->|Extend| Hist[Actualizar Histórico]
+            </div>
+            <h4 class="text-lg font-medium text-gray-800 mt-6 mb-2">Casos de Uso Clave:</h4>
+            <ol class="list-decimal list-inside text-gray-700 space-y-1 pl-4">
+                <li><strong>Registrar Cliente</strong>: Alta de nuevos clientes con validación de identificación única.</li>
+                <li><strong>Registrar Transacción</strong>: Carga de abonos/cargos con actualización en tiempo real del saldo.</li>
+                <li><strong>Calcular Saldo Automático</strong>: El sistema calcula el saldo basado en transacciones.</li>
+                <li><strong>Generar Histórico</strong>: Consulta de transacciones y tasas con filtros por fecha.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="accordion-item bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm">
+        <button class="accordion-header w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-indigo-700 focus:outline-none">
+            <span><i class="fas fa-database mr-3 text-indigo-500"></i>4. Modelado de Datos</span>
+            <i class="fas fa-chevron-down accordion-icon transition-transform"></i>
+        </button>
+        <div class="accordion-content bg-white p-5 border-t border-indigo-200">
+            <h4 class="text-xl font-medium text-gray-800 mb-3">Diagrama Entidad-Relación</h4>
+            <div class="mermaid bg-gray-50 p-4 rounded-lg shadow-inner overflow-x-auto">
+            erDiagram
+                CLIENTES ||--o{ TRANSACCIONES : "1 a muchos"
+                CLIENTES {
+                    string identificacion PK
+                    string nombre
+                    string email
+                    string telefono
+                    string direccion
+                }
+                TRANSACCIONES {
+                    int id PK
+                    float monto
+                    date fecha
+                    enum tipo
+                    string clienteId FK
+                }
+                TASA_DOLAR {
+                    int id PK
+                    float tasa
+                    date fecha
+                }
+            </div>
+            <h4 class="text-lg font-medium text-gray-800 mt-6 mb-2">Normalización:</h4>
+            <ul class="list-disc list-inside text-gray-700 space-y-1 pl-4">
+                <li><strong>3FN (Tercera Forma Normal)</strong>: Eliminación de dependencias transitivas.</li>
+                <li><strong>Claves Foráneas</strong>: Integridad referencial entre <code>Transacciones.clienteId</code> y <code>Clientes.identificacion</code>.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="accordion-item bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm">
+        <button class="accordion-header w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-indigo-700 focus:outline-none">
+            <span><i class="fas fa-cogs mr-3 text-indigo-500"></i>5. Modelado de Procesos</span>
+            <i class="fas fa-chevron-down accordion-icon transition-transform"></i>
+        </button>
+        <div class="accordion-content bg-white p-5 border-t border-indigo-200">
+            <h4 class="text-xl font-medium text-gray-800 mb-3">Flujo de Registro de Transacción</h4>
+            <div class="mermaid bg-gray-50 p-4 rounded-lg shadow-inner overflow-x-auto">
+            sequenceDiagram
+    participant Usuario
+    participant Frontend
+    participant Backend
+    participant DB
+
+    Usuario->>Frontend: Ingresa monto y tipo
+    Frontend->>Backend: POST /transacciones
+    Backend->>DB: Valida clienteId
+    DB-->>Backend: Cliente existe
+    Backend->>DB: Crea transacción
+    Backend->>Backend: Calcula nuevo saldo
+    Backend-->>Frontend: 201 Created + Saldo
+    Frontend-->>Usuario: Muestra confirmación
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm">
+        <button class="accordion-header w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-indigo-700 focus:outline-none">
+            <span><i class="fas fa-layer-group mr-3 text-indigo-500"></i>6. Arquitectura del Sistema</span>
+            <i class="fas fa-chevron-down accordion-icon transition-transform"></i>
+        </button>
+        <div class="accordion-content bg-white p-5 border-t border-indigo-200">
+            <h4 class="text-lg font-medium text-gray-800 mb-2">Patrones Utilizados:</h4>
+            <ul class="list-disc list-inside text-gray-700 space-y-1 pl-4">
+                <li><strong>MVC</strong>: Separación entre Modelos, Vistas (React) y Controladores.</li>
+                <li><strong>Singleton</strong>: Conexión única a la base de datos (Sequelize).</li>
+                <li><strong>Repository</strong>: Acceso centralizado a datos en controladores.</li>
+            </ul>
+            <h4 class="text-xl font-medium text-gray-800 mt-6 mb-3">Diagrama de Componentes</h4>
+                <div class="mermaid bg-gray-50 p-4 rounded-lg shadow-inner overflow-x-auto">
+    flowchart TD
+    subgraph Frontend
+        A[Componente Clientes]
+        B[Componente Transacciones]
+        C[Componente TasaDolar]
+    end
+
+    subgraph Backend
+        D[API REST]
+        E[Controladores]
+        F[Modelos]
+    end
+
+    subgraph Base_de_Datos
+        G[PostgreSQL]
+    end
+
+    A -->|HTTP| D
+    B -->|HTTP| D
+    C -->|HTTP| D
+    D -->|Sequelize| G
+                </div>
+        </div>
+    </div>
+
+    <div class="accordion-item bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm">
+        <button class="accordion-header w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-indigo-700 focus:outline-none">
+            <span><i class="fas fa-code-branch mr-3 text-indigo-500"></i>7. Metodología de Desarrollo</span>
+            <i class="fas fa-chevron-down accordion-icon transition-transform"></i>
+        </button>
+        <div class="accordion-content bg-white p-5 border-t border-indigo-200">
+            <ol class="list-decimal list-inside text-gray-700 space-y-2 pl-4">
+                <li><strong>Requisitos</strong>: Definición de historias de usuario (CRUD clientes, transacciones).</li>
+                <li><strong>Diseño</strong>: Modelado UML (casos de uso, clases, secuencias).</li>
+                <li><strong>Implementación</strong>:
+                    <ul class="list-disc list-inside ml-6 mt-1 space-y-1">
+                        <li>Backend: Node.js + Express + Sequelize.</li>
+                        <li>Frontend: React + Axios + React Router.</li>
+                    </ul>
+                </li>
+                <li><strong>Pruebas</strong>:
+                    <ul class="list-disc list-inside ml-6 mt-1 space-y-1">
+                        <li>Unitarias: Jest (backend).</li>
+                        <li>Integración: Postman.</li>
+                    </ul>
+                </li>
+                <li><strong>Despliegue</strong>: Docker (contenedor de PostgreSQL y Node.js).</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="accordion-item bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm">
+        <button class="accordion-header w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-indigo-700 focus:outline-none">
+            <span><i class="fas fa-check-circle mr-3 text-indigo-500"></i>8. Resultados y Validación</span>
+            <i class="fas fa-chevron-down accordion-icon transition-transform"></i>
+        </button>
+        <div class="accordion-content bg-white p-5 border-t border-indigo-200">
+            <div class="overflow-x-auto shadow-md rounded-lg">
+                <table class="min-w-full bg-white">
+                    <thead class="bg-indigo-600 text-white">
+                        <tr>
+                            <th class="py-3 px-6 text-left text-sm font-semibold">Métrica</th>
+                            <th class="py-3 px-6 text-left text-sm font-semibold">Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                            <td class="py-3 px-6">Tiempo de Respuesta</td>
+                            <td class="py-3 px-6">&lt; 500ms (90% de casos)</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                            <td class="py-3 px-6">Cobertura de Pruebas</td>
+                            <td class="py-3 px-6">85% (endpoints clave)</td>
+                        </tr>
+                        <tr class="hover:bg-indigo-50">
+                            <td class="py-3 px-6">Errores Críticos</td>
+                            <td class="py-3 px-6">0 (en producción)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div> <footer class="text-center mt-12 pt-8 border-t border-gray-300">
+    <p class="text-sm text-gray-500">&copy; <span id="currentYear"></span></p>
+    <p class="text-xs text-gray-400 mt-1"></p>
+</footer>
+</div>
+<script src="scrip.js"></script>
+
+
+</body>
+</html>

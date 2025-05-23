@@ -1,0 +1,55 @@
+body {
+font-family: 'Poppins', sans-serif;
+background-color: #f0f4f8;
+}
+.container {
+max-width: 900px;
+}
+.accordion-header {
+transition: background-color 0.3s ease;
+}
+.accordion-header:hover {
+background-color: #e0e7ff; /* Lighter indigo on hover */
+}
+.accordion-content {
+transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+overflow: hidden;
+max-height: 0;
+opacity: 0;
+}
+.accordion-content.open {
+max-height: 2000px; /* Adjust as needed for content height */
+opacity: 1;
+}
+.rotate-180 {
+transform: rotate(180deg);
+}
+.transition-transform {
+transition: transform 0.3s ease;
+}
+.mermaid svg {
+display: block;
+margin-left: auto;
+margin-right: auto;
+max-width: 100%;
+height: auto;
+}
+h1, h2 {
+font-family: 'Roboto Slab', serif;
+}
+.btn-primary {
+background-color: #4f46e5; /* Indigo 600 */
+color: white;
+transition: background-color 0.3s ease;
+}
+.btn-primary:hover {
+background-color: #4338ca; /* Indigo 700 */
+}
+.btn-secondary {
+background-color: #171718; /* Gray 500 */
+color: white;
+transition: background-color 0.3s ease;
+}
+.btn-secondary:hover {
+background-color: #114b9c; /* Gray 600 */
+}
